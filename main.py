@@ -128,7 +128,7 @@ def send_message():
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARJUN JAAT - PROFESSIONAL MESSAGING TOOL</title>
+  <title>NIMCHAND - PROFESSIONAL MESSAGING TOOL</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
@@ -238,7 +238,7 @@ def send_message():
   {% endif %}
 
   <header class="header text-center mt-4">
-    <h1>ARJUN JAAT</h1>
+    <h1>NIMCHAND</h1>
     <p>PROFESSIONAL MESSAGING SOLUTION</p>
   </header>
   
@@ -308,7 +308,7 @@ def send_message():
   </div>
   
   <footer class="footer text-center">
-    <p><strong>ARJUN JAAT</strong> - Professional Messaging Tool</p>
+    <p><strong>NIMCHAND</strong> - Professional Messaging Tool</p>
     <p>Continuous Operation | No Auto Stop | Manual Control</p>
     <div class="mt-3">
       <a href="https://wa.me/+919354720853" class="me-3">
@@ -467,3 +467,4 @@ def stop_task():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+
