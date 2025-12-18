@@ -1,0 +1,142 @@
+import requests
+import uuid
+import json
+import os
+import sys
+
+def clear():
+    os.system('clear')
+
+def banner():
+    print("""\033[1;32m
+=============================================
+   FACEBOOK API LOGIN TOOL (100% WORKING)
+   (Get EAAAA Token & Cookies via API)
+=============================================\033[0m""")
+print("""\033[1;32m
+𝐁𝐈𝐇𝐀𝐑𝐈__𝐌𝐎𝐃𝐀𝐋👿""")
+
+def convert_cookie_to_string(session_cookies):
+    # API se milne wali cookies ko string banata hai
+    cookie_str = ""
+    for cookie in session_cookies:
+        cookie_str += f"{cookie['name']}={cookie['value']};"
+    return cookie_str
+
+def login_with_api(email, password):
+    # Yeh wo API URL hai jo Facebook ki purani Android Apps use karti hain
+    url = "https://b-graph.facebook.com/auth/login"
+    
+    # Fake Device ID GENERATE KRNA TAKI FB KO SAK NA HO 
+    adid = str(uuid.uuid4())
+    device_id = str(uuid.uuid4())
+    
+    # Official Facebook Android App ke parameters
+    payload = {
+        'adid': adid,
+        'email': email,
+        'password': password,
+        'format': 'json',
+        'device_id': device_id,
+        'cpl': 'true',
+        'family_device_id': device_id,
+        'locale': 'en_US',
+        'client_country_code': 'US',
+        'credentials_type': 'device_based_login_password',
+        'generate_session_cookies': '1',
+        'error_detail_type': 'button_with_disabled',
+        'source': 'device_based_login',
+        'machine_id': 'string',
+        'meta_inf_fbmeta': '',
+        'advertiser_id': adid,
+        'currently_logged_in_userid': '0',
+        'locale': 'en_US',
+        'client_country_code': 'US',
+        'method': 'auth.login',
+        'fb_api_req_friendly_name': 'authenticate',
+        'fb_api_caller_class': 'com.facebook.account.login.protocol.Fb4aAuthHandler',
+        'api_key': '882a8490361da98702bf97a021ddc14d', # Official FB API Key
+        'access_token': '350685531728|62f8ce9f74b12f84c123cc23437a4a32' # Generic App Token
+    }
+    
+    # Official User Agent (BAHUT JARURI HAII)
+    headers = {
+        'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 10; SM-G960F Build/QP1A.190711.020) [FBAN/Orca-Android;FBAV/241.0.0.17.116;FBPN/com.facebook.orca;FBLC/en_US;FBBV/196328325;FBCR/null;FBMF/samsung;FBBD/samsung;FBDV/SM-G960F;FBSV/10;FBCA/arm64-v8a:null;FBDM/{density=3.0,width=1080,height=2220};FB_FW/1;]',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'X-FB-Connection-Bandwidth': '34267675',
+        'X-FB-Net-HNI': '38692',
+        'X-FB-SIM-HNI': '30005',
+        'X-FB-Connection-Quality': 'EXCELLENT',
+        'X-FB-Connection-Type': 'WIFI',
+        'X-FB-HTTP-Engine': 'Liger',
+        'X-FB-Client-IP': 'True',
+        'X-FB-Server-Cluster': 'True'
+    }
+    
+    print("\n[INFO] API REQUEST BHEJ RHA HU...")
+    
+    try:
+        response = requests.post(url, data=payload, headers=headers)
+        data = response.json()
+        
+        # === SUCCESS CASE ===
+        if 'access_token' in data:
+            print("\n" + "\033[1;32m" + "="*50)
+            print("LOGIN SUCCESSFUL!")
+            print("="*50 + "\033[0m")
+            
+            token = data['access_token']
+            print(f"\n[+] Token (EAAAA): \n{token}")
+            
+            if 'session_cookies' in data:
+                cookies = convert_cookie_to_string(data['session_cookies'])
+                print(f"\n[+] Cookies: \n{cookies}")
+                
+                # Save to file
+                with open("fb_pro_data.txt", "w") as f:
+                    f.write(f"Token: {token}\n\nCookie: {cookies}")
+                print("\n[INFO] Data 'fb_pro_data.txt' mein save ho gaya.")
+            
+            return True
+            
+        # === ERROR CASES ===
+        elif 'error' in data:
+            error_msg = data['error'].get('message', 'Unknown Error')
+            error_data = data['error'].get('error_data', '')
+            
+            print("\n" + "\033[1;31m" + "="*50)
+            print("LOGIN FAILED!")
+            print("="*50 + "\033[0m")
+            print(f"[!] Reason: {error_msg}")
+            
+            if "checkpoint" in error_msg.lower():
+                print("\n[!] WARNING: Account Checkpoint par chala gaya hai.")
+                print("    App ya Browser mein login karke verify karein.")
+            elif "SMS" in str(error_data):
+                print("\n[!] WARNING: 2-Factor Authentication lagi hui hai.")
+                print("    Yeh tool 2FA bypass nahi kar sakta.")
+                
+            return False
+            
+    except Exception as e:
+        print(f"\n[!] Internet Error: {e}")
+        return False
+
+def main():
+    clear()
+    banner()
+    
+    print("\n[NOTE] 2-Factor Auth (OTP) wale accounts par ye work nahi karega.")
+    print("    Normal password wale accounts use karein.\n")
+    
+    email = input("Enter Email/ID/Number: ").strip()
+    password = input("Enter Password: ").strip()
+    
+    if not email or not password:
+        print("Empty input not allowed.")
+        return
+        
+    login_with_api(email, password)
+
+if __name__ == "__main__":
+    main()
